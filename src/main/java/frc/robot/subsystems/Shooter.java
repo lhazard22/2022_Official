@@ -1,6 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
 
@@ -46,6 +43,11 @@ public class Shooter extends SubsystemBase {
   public void shoot(double topRPM, double botRPM) {
     topShooter.set(ControlMode.Velocity, topRPM * 2048 / 600);
     botShooter.set(ControlMode.Velocity, botRPM * 2048 / 600);
+  }
+
+  public void shooterOff() {
+    topShooter.set(ControlMode.Velocity, 0);
+    botShooter.set(ControlMode.Velocity, 0);
   }
 
   @Override
