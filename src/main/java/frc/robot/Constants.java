@@ -5,11 +5,11 @@ import frc.robot.Other.Gains;
 
 public final class Constants {
 
-    
     //Controller
     public static int DriverControllerChannel = 0;
     public static int ManipControllerChannel = 1;
     public static int buttonA = 1;
+    public static int buttonY = 4;
     public static double deadzone;
     
     //Drive Train
@@ -37,4 +37,10 @@ public final class Constants {
     public static int kPIDLoopIdx = 0;
     public static int kTimeoutMs = 30;
     public static Gains kGains_Velocity = new Gains( 0.05, 0, 0, 0, 0,  1.00);
+
+    //Intake
+    public static int intakeMotorChannel = 11;
+    public static int intakeUp = 0;
+    public static int intakeDown = 1;
+    public static double spinSpeed;
 }
