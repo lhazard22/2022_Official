@@ -11,7 +11,7 @@ import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
   WPI_TalonSRX intakeMotor = new WPI_TalonSRX(Constants.intakeMotorChannel);
-  DoubleSolenoid intakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.intakeDown, Constants.intakeUp);
+  //DoubleSolenoid intakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.intakeDown, Constants.intakeUp);
   
   public Intake() {
 
@@ -19,7 +19,7 @@ public class Intake extends SubsystemBase {
 
   public void intake(double spinSpeed) {
     intakeMotor.set(spinSpeed);
-    intakeSolenoid.set(Value.kForward);
+    //intakeSolenoid.set(Value.kForward);
   }
 
   public void reverseIntake(double spinSpeed) {
@@ -28,7 +28,7 @@ public class Intake extends SubsystemBase {
 
   public void stopIntake() {
     intakeMotor.set(0);
-    intakeSolenoid.set(Value.kReverse);
+    //intakeSolenoid.set(Value.kReverse);
   }
 
   @Override

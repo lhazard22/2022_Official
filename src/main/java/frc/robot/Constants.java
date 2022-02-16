@@ -5,12 +5,13 @@ import frc.robot.Other.Gains;
 
 public final class Constants {
 
+
     //Controller
     public static int DriverControllerChannel = 0;
     public static int ManipControllerChannel = 1;
     public static int buttonA = 1;
     public static int buttonY = 4;
-    public static double deadzone;
+    public static double deadzone = 0.1;
     
     //Drive Train
     public static int blSteerMotorChannel = 1;

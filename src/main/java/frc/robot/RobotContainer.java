@@ -21,13 +21,16 @@ public class RobotContainer {
   JoystickButton manipButtonY = new JoystickButton(manipController, Constants.buttonY);
   public RobotContainer() {
     configureButtonBindings();
-    m_DriveTrain.setDefaultCommand(new SwerveDriveCommand (() -> driverController.getLeftX(),
-     () -> driverController.getLeftY(), () -> driverController.getRightX(), m_DriveTrain));
+    m_DriveTrain.setDefaultCommand(new SwerveDriveCommand (() -> driverController.getLeftY(),
+     () -> driverController.getLeftX(), () -> driverController.getRightY(), m_DriveTrain));
+     System.out.println(driverController.getLeftY());
+     System.out.println(driverController.getLeftX());
+     System.out.println(driverController.getRightX());
   }
 
   private void configureButtonBindings() {
-    manipButtonA.whileHeld(new ShootCommand(Constants.topRPM, Constants.botRPM, m_Shooter));
-    manipButtonY.whileHeld(new IntakeCommand(m_Intake));
+    //manipButtonA.whileHeld(new ShootCommand(Constants.topRPM, Constants.botRPM, m_Shooter));
+    //manipButtonY.whileHeld(new IntakeCommand(m_Intake));
   }
 
   public Command getAutonomousCommand() {

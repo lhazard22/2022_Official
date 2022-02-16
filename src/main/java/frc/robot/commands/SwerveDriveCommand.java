@@ -43,6 +43,7 @@ public class SwerveDriveCommand extends CommandBase {
     leftY = m_leftY.getAsDouble();
     leftX = m_leftX.getAsDouble();
     rightX = m_rightX.getAsDouble();
+    System.out.println(leftX);
     //Finds the X Value of the Left Stick on the Controller and Takes Care of Joystick Drift
     if (Math.abs(leftX) < Constants.deadzone) {
       x = 0;
@@ -258,10 +259,125 @@ public class SwerveDriveCommand extends CommandBase {
     double value_3 = m_DriveTrain.getOptimalRoute(w3d_1, w3d_2, w3d_3, w3d_4);
     double value_4 = m_DriveTrain.getOptimalRoute(w4d_1, w4d_2, w4d_3, w4d_4);
 
-    m_DriveTrain.drive(m_DriveTrain.frDrive, w1s, m_DriveTrain.frSteer, Constants.spinTolerance, value_1, w1d_1, w1d_2, w1d_3, w1d_4);
-    m_DriveTrain.drive(m_DriveTrain.flDrive, w2s, m_DriveTrain.flSteer, Constants.spinTolerance, value_2, w2d_1, w2d_2, w2d_3, w2d_4);
-    m_DriveTrain.drive(m_DriveTrain.blDrive, w3s, m_DriveTrain.blSteer, Constants.spinTolerance, value_3, w3d_1, w3d_2, w3d_3, w3d_4);
-    m_DriveTrain.drive(m_DriveTrain.brDrive, w4s, m_DriveTrain.brSteer, Constants.spinTolerance, value_4, w4d_1, w4d_2, w4d_3, w4d_4);
+    if (value_1 == 1) {
+      m_DriveTrain.frDrive.set(w1s);
+      if (w1d_1 > Constants.spinTolerance) {
+        m_DriveTrain.frSteer.set(0.07);
+      } else {
+        m_DriveTrain.frSteer.set(0);
+      }
+    } else if (value_1 == 2) {
+      m_DriveTrain.frDrive.set(w1s);
+      if (w1d_2 > Constants.spinTolerance) {
+        m_DriveTrain.frSteer.set(-0.07);
+      } else {
+        m_DriveTrain.frSteer.set(0);
+      }
+    } else if (value_1 == 3) {
+      m_DriveTrain.frDrive.set(-w1s);
+      if (w1d_3 > Constants.spinTolerance) {
+        m_DriveTrain.frSteer.set(0.07);
+      } else {
+        m_DriveTrain.frSteer.set(0);
+      }
+    } else if (value_1 == 4) {
+      m_DriveTrain.frDrive.set(-w1s);
+      if (w1d_4 > Constants.spinTolerance) {
+        m_DriveTrain.frSteer.set(-0.07);
+      } else {
+        m_DriveTrain.frSteer.set(0);
+      }
+    }
+
+    if (value_2 == 1) {
+      m_DriveTrain.flDrive.set(w2s);
+      if (w2d_1 > Constants.spinTolerance) {
+        m_DriveTrain.flSteer.set(0.07);
+      } else {
+        m_DriveTrain.flSteer.set(0);
+      }
+    } else if (value_2 == 2) {
+      m_DriveTrain.flDrive.set(w2s);
+      if (w2d_2 > Constants.spinTolerance) {
+        m_DriveTrain.flSteer.set(-0.07);
+      } else {
+        m_DriveTrain.flSteer.set(0);
+      }
+    } else if (value_2 == 3) {
+      m_DriveTrain.flDrive.set(-w2s);
+      if (w2d_3 > Constants.spinTolerance) {
+        m_DriveTrain.flSteer.set(0.07);
+      } else {
+        m_DriveTrain.flSteer.set(0);
+      }
+    } else if (value_2 == 4) {
+      m_DriveTrain.flDrive.set(-w2s);
+      if (w2d_4 > Constants.spinTolerance) {
+        m_DriveTrain.flSteer.set(-0.07);
+      } else {
+        m_DriveTrain.flSteer.set(0);
+      }
+    }
+
+    if (value_3 == 1) {
+      m_DriveTrain.blDrive.set(w3s);
+      if (w3d_1 > Constants.spinTolerance) {
+        m_DriveTrain.blSteer.set(0.07);
+      } else {
+        m_DriveTrain.blSteer.set(0);
+      }
+    } else if (value_3 == 2) {
+      m_DriveTrain.blDrive.set(w3s);
+      if (w3d_2 > Constants.spinTolerance) {
+        m_DriveTrain.blSteer.set(-0.07);
+      } else {
+        m_DriveTrain.blSteer.set(0);
+      }
+    } else if (value_3 == 3) {
+      m_DriveTrain.blDrive.set(-w3s);
+      if (w3d_3 > Constants.spinTolerance) {
+        m_DriveTrain.blSteer.set(0.07);
+      } else {
+        m_DriveTrain.blSteer.set(0);
+      }
+    } else if (value_3 == 4) {
+      m_DriveTrain.blDrive.set(-w3s);
+      if (w3d_4 > Constants.spinTolerance) {
+        m_DriveTrain.blSteer.set(-0.07);
+      } else {
+        m_DriveTrain.blSteer.set(0);
+      }
+    }
+
+    if (value_4 == 1) {
+      m_DriveTrain.brDrive.set(w4s);
+      if (w4d_1 > Constants.spinTolerance) {
+        m_DriveTrain.brSteer.set(0.07);
+      } else {
+        m_DriveTrain.brSteer.set(0);
+      }
+    } else if (value_4 == 2) {
+      m_DriveTrain.brDrive.set(w4s);
+      if (w4d_2 > Constants.spinTolerance) {
+        m_DriveTrain.brSteer.set(-0.07);
+      } else {
+        m_DriveTrain.brSteer.set(0);
+      }
+    } else if (value_4 == 3) {
+      m_DriveTrain.brDrive.set(-w4s);
+      if (w4d_3 > Constants.spinTolerance) {
+        m_DriveTrain.brSteer.set(0.07);
+      } else {
+        m_DriveTrain.brSteer.set(0);
+      }
+    } else if (value_4 == 4) {
+      m_DriveTrain.brDrive.set(-w4s);
+      if (w4d_4 > Constants.spinTolerance) {
+        m_DriveTrain.brSteer.set(-0.07);
+      } else {
+        m_DriveTrain.brSteer.set(0);
+      }
+    }
   }
 
   // Called once the command ends or is interrupted.
