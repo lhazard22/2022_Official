@@ -70,38 +70,6 @@ public class DriveTrain extends SubsystemBase {
     }
   }
 
-  public void drive(CANSparkMax driveMotor, double speed,CANSparkMax steerMotor, double spinTolerance, double value, double dif1, double dif2, double dif3, double dif4) {
-    if (value == 1) {
-      driveMotor.set(speed);
-      if (dif1 > spinTolerance) {
-        driveMotor.set(0.07);
-      } else {
-        driveMotor.set(0);
-      }
-    } else if (value == 2) {
-      driveMotor.set(speed);
-      if (dif2 > spinTolerance) {
-        driveMotor.set(-0.07);
-      } else {
-        driveMotor.set(0);
-      }
-    } else if (value == 3) {
-      driveMotor.set(-speed);
-      if (dif3 > spinTolerance) {
-        driveMotor.set(0.07);
-      } else {
-        driveMotor.set(0);
-      }
-    } else if (value == 4) {
-      driveMotor.set(-speed);
-      if (dif4 > spinTolerance) {
-        driveMotor.set(-0.07);
-      } else {
-        driveMotor.set(0);
-      }
-    }
-  }
-
   @Override
   public void periodic() {
 
