@@ -3,11 +3,12 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.IntakeRelay;
 
 public class IntakeCommand extends CommandBase {
-  Intake m_Intake = new Intake();
-  public IntakeCommand(Intake _Intake) {
+  IntakeRelay m_Intake = new IntakeRelay();
+
+  public IntakeCommand(IntakeRelay _Intake) {
     m_Intake = _Intake;
     addRequirements(m_Intake);
   }

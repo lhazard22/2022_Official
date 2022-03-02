@@ -22,7 +22,7 @@ public class SwerveDriveCommand extends CommandBase {
   double w2ca;
   double w3ca;
   double w4ca;
-  
+
   public SwerveDriveCommand(DoubleSupplier _leftY, DoubleSupplier _leftX, DoubleSupplier _rightX, DriveTrain _dTrain) {
     m_leftY = _leftY;
     m_leftX = _leftX;
@@ -44,21 +44,24 @@ public class SwerveDriveCommand extends CommandBase {
     leftX = m_leftX.getAsDouble();
     rightX = m_rightX.getAsDouble();
     System.out.println(leftX);
-    //Finds the X Value of the Left Stick on the Controller and Takes Care of Joystick Drift
+    // Finds the X Value of the Left Stick on the Controller and Takes Care of
+    // Joystick Drift
     if (Math.abs(leftX) < Constants.deadzone) {
       x = 0;
     } else {
       x = leftX;
     }
 
-    //Finds the Y Value of the Left Stick on the Controller and Takes Care of Joystick Drift
+    // Finds the Y Value of the Left Stick on the Controller and Takes Care of
+    // Joystick Drift
     if (Math.abs(leftY) < Constants.deadzone) {
       y = 0;
     } else {
       y = -leftY;
     }
 
-    //Finds the X Value of the Right Stick on the Controller and Takes Care of Joystick Drift
+    // Finds the X Value of the Right Stick on the Controller and Takes Care of
+    // Joystick Drift
     if (Math.abs(rightX) < Constants.deadzone) {
       rot = 0;
     } else {
@@ -74,22 +77,37 @@ public class SwerveDriveCommand extends CommandBase {
     double C = vy - omega * Constants.length / 2;
     double D = vy + omega * Constants.length / 2;
 
-    
-    //Finds Speeds for Each of the Wheels
-    double w1s = Math.sqrt(Math.pow(B, 2) + Math.pow(C, 2)) / 10;
-    double w2s = Math.sqrt(Math.pow(B, 2) + Math.pow(D, 2)) / 10;
-    double w3s = Math.sqrt(Math.pow(A, 2) + Math.pow(D, 2)) / 10;
-    double w4s = Math.sqrt(Math.pow(A, 2) + Math.pow(C, 2)) / 10;
+    // Finds Speeds for Each of the Wheels
+    double w1s = Math.sqrt(Math.pow(B, 2) + Math.pow(C, 2)) * .5;
+    double w2s = Math.sqrt(Math.pow(B, 2) + Math.pow(D, 2)) * .5;
+    double w3s = Math.sqrt(Math.pow(A, 2) + Math.pow(D, 2)) * .5;
+    double w4s = Math.sqrt(Math.pow(A, 2) + Math.pow(C, 2)) * .5;
 
-
-    //Finds the Desired Angle
+    // Finds the Desired Angle
     double w1a = (Math.atan2(B, C) * (180 / Math.PI)) + 180;
     double w2a = (Math.atan2(B, D) * (180 / Math.PI)) + 180;
     double w3a = (Math.atan2(A, D) * (180 / Math.PI)) + 180;
     double w4a = (Math.atan2(A, C) * (180 / Math.PI)) + 180;
 
-    
-    //Manipulates Degree Values so 0 is on top and degree values get bigger when going clockwise
+    /*double yaw = m_DriveTrain.gyro.getYaw() + 180;
+
+    if (yaw == 360) {
+      yaw = 0;
+    }
+
+    if (yaw <= 180) {
+      yaw = yaw + 180;
+    } else if (w1a > 180) {
+      yaw = yaw - 180;
+    }
+
+    if (yaw == 360) {
+      yaw = 0;
+    }*/
+
+    // Manipulates Degree Values so 0 is on top and degree values get bigger when
+    // going clockwise
+
     if (w1a == 360) {
       w1a = 0;
     }
@@ -114,7 +132,7 @@ public class SwerveDriveCommand extends CommandBase {
     } else if (w2a > 180) {
       w2a = w2a - 180;
     }
-    
+
     if (w3a <= 180) {
       w3a = w3a + 180;
     } else if (w3a > 180) {
@@ -127,6 +145,29 @@ public class SwerveDriveCommand extends CommandBase {
       w4a = w4a - 180;
     }
 
+    /*
+     * if (Math.abs(omega) < .1) {
+     * if (yaw < 180) {
+     * if (w1a == 360) {
+     * w1a = 0;
+     * }
+     * if (w2a == 360) {
+     * w2a = 0;
+     * }
+     * if (w3a == 360) {
+     * w3a = 0;
+     * }
+     * if (w4a == 360) {
+     * w4a = 0;
+     * }
+     * }
+     * 
+     * w1a = Math.abs(w1a - yaw);
+     * w2a = Math.abs(w2a - yaw);
+     * w3a = Math.abs(w3a - yaw);
+     * w4a = Math.abs(w4a - yaw);
+     * }
+     */
 
     if (w1a == 360) {
       w1a = 0;
@@ -140,14 +181,14 @@ public class SwerveDriveCommand extends CommandBase {
     if (w4a == 360) {
       w4a = 0;
     }
-    
-    //Finds Complimentary Angle to the Desired Angle
+
+    // Finds Complimentary Angle to the Desired Angle
     double w1ra = m_DriveTrain.getRevPosition(w1a);
     double w2ra = m_DriveTrain.getRevPosition(w2a);
     double w3ra = m_DriveTrain.getRevPosition(w3a);
     double w4ra = m_DriveTrain.getRevPosition(w4a);
 
-    //Sets Max Wheel Speed
+    // Sets Max Wheel Speed
     double max = w1s;
     if (w2s > max)
       max = w2s;
@@ -162,7 +203,7 @@ public class SwerveDriveCommand extends CommandBase {
       w4s = w4s / max;
     }
 
-    //Finds Actual Angle of Wheels
+    // Finds Actual Angle of Wheels
     w1ca = (-1 * m_DriveTrain.getPosition(m_DriveTrain.frEncoder.get(), 267.4)) + 360;
     w2ca = (-1 * m_DriveTrain.getPosition(m_DriveTrain.flEncoder.get(), 120.7)) + 360;
     w3ca = (-1 * m_DriveTrain.getPosition(m_DriveTrain.blEncoder.get(), 64.7)) + 360;
@@ -200,7 +241,6 @@ public class SwerveDriveCommand extends CommandBase {
     double w4d_2 = w4ca - w4a;
     double w4d_3 = w4ra - w4ca;
     double w4d_4 = w4ca - w4ra;
-
 
     if (w1d_1 < 0) {
       w1d_1 = w1d_1 + 360;
@@ -382,7 +422,8 @@ public class SwerveDriveCommand extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override

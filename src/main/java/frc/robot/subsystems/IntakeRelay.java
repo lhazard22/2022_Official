@@ -1,7 +1,7 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -9,17 +9,17 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Intake extends SubsystemBase {
-  WPI_TalonSRX intakeMotor = new WPI_TalonSRX(Constants.intakeMotorChannel);
-  //DoubleSolenoid intakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.intakeDown, Constants.intakeUp);
-  
-  public Intake() {
+public class IntakeRelay extends SubsystemBase {
+  public WPI_TalonFX intakeMotor = new WPI_TalonFX(Constants.intakeMotorChannel);
+  DoubleSolenoid intakeSolenoid = new DoubleSolenoid(20,PneumaticsModuleType.REVPH, Constants.intakeDown, Constants.intakeUp);
+
+  public IntakeRelay() {
 
   }
 
   public void intake(double spinSpeed) {
     intakeMotor.set(spinSpeed);
-    //intakeSolenoid.set(Value.kForward);
+    intakeSolenoid.set(Value.kForward);
   }
 
   public void reverseIntake(double spinSpeed) {
@@ -28,7 +28,11 @@ public class Intake extends SubsystemBase {
 
   public void stopIntake() {
     intakeMotor.set(0);
-    //intakeSolenoid.set(Value.kReverse);
+    intakeSolenoid.set(Value.kReverse);
+  }
+
+  public void runRelay(double spinSpeed) {
+    intakeMotor.set(spinSpeed);
   }
 
   @Override

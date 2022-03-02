@@ -6,12 +6,16 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase {
   WPI_TalonFX topShooter = new WPI_TalonFX(Constants.topShooterMotorChannel);
   WPI_TalonFX botShooter = new WPI_TalonFX(Constants.botShooterMotorChannel);
+  public DoubleSolenoid shooterSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, Constants.ballUp, Constants.ballDown);
   
   public Shooter() {
     topShooter.configFactoryDefault();
@@ -48,6 +52,55 @@ public class Shooter extends SubsystemBase {
   public void shooterOff() {
     topShooter.set(ControlMode.Velocity, 0);
     botShooter.set(ControlMode.Velocity, 0);
+  }
+
+  public double getTopAngularVelocity(){
+    return topShooter.getSelectedSensorVelocity() * 600 / 2048;
+  }
+
+  public double getBotAngularVelocity(){
+    return botShooter.getSelectedSensorVelocity() * 600 / 2048;
+  }
+
+  public boolean topShooterReady(double topRPM) {
+    double actualTopRPM = getTopAngularVelocity();
+
+    if (actualTopRPM > topRPM - topRPM*Constants.acceptableRpmError 
+    && actualTopRPM < topRPM + topRPM*Constants.acceptableRpmError){
+      return true; 
+    } else {
+      return false;
+    }
+  }
+
+  public boolean botShooterReady(double botRPM) {
+    double actualBotRPM = getBotAngularVelocity();
+
+    if (actualBotRPM > botRPM - botRPM*Constants.acceptableRpmError 
+    && actualBotRPM < botRPM + botRPM*Constants.acceptableRpmError){
+      return true; 
+    } else {
+      return false;
+    }
+  }
+
+  public boolean shooterReady(double topRPM, double botRPM) {
+    boolean topShooterReady = topShooterReady(topRPM);
+    boolean botShooterReady = botShooterReady(botRPM);
+
+    if(topShooterReady && botShooterReady) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  public void ballUp() {
+    shooterSolenoid.set(Value.kForward);
+  }
+
+  public void retract() {
+    shooterSolenoid.set(Value.kReverse);
   }
 
   @Override

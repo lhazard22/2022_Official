@@ -1,6 +1,7 @@
 
 package frc.robot.subsystems;
 
+//import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -21,6 +22,7 @@ public class DriveTrain extends SubsystemBase {
   public DutyCycleEncoder flEncoder = new DutyCycleEncoder(Constants.flEncoderChannel);
   public DutyCycleEncoder frEncoder = new DutyCycleEncoder(Constants.frEncoderChannel);
   public DutyCycleEncoder brEncoder = new DutyCycleEncoder(Constants.brEncoderChannel);
+  //public AHRS gyro = new AHRS(SPI.Port.kMXP);
 
   public DriveTrain() {
     flDrive.setInverted(false);

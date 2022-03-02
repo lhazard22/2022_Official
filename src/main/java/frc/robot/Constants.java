@@ -4,15 +4,18 @@ package frc.robot;
 import frc.robot.Other.Gains;
 
 public final class Constants {
-
-
+    
     //Controller
     public static int DriverControllerChannel = 0;
     public static int ManipControllerChannel = 1;
     public static int buttonA = 1;
+    public static int buttonB = 2;
+    public static int buttonX = 3;
     public static int buttonY = 4;
+    public static int buttonLeft = 5;
+    public static int buttonRight = 6;
     public static double deadzone = 0.1;
-    
+
     //Drive Train
     public static int blSteerMotorChannel = 1;
     public static int blDriveMotorChannel = 2;
@@ -27,8 +30,8 @@ public final class Constants {
     public static int frEncoderChannel = 2;
     public static int brEncoderChannel = 3;
     public static double spinTolerance = 5;
-    public static double length = 0.47;
-    public static double width = 0.47;
+    public static double length = 0.58;
+    public static double width = 0.58;
 
     //Shooter
     public static int topShooterMotorChannel = 9;
@@ -38,10 +41,36 @@ public final class Constants {
     public static int kPIDLoopIdx = 0;
     public static int kTimeoutMs = 30;
     public static Gains kGains_Velocity = new Gains( 0.05, 0, 0, 0, 0,  1.00);
+    public static double acceptableRpmError = 0.05;
 
     //Intake
     public static int intakeMotorChannel = 11;
-    public static int intakeUp = 0;
-    public static int intakeDown = 1;
+    public static int intakeUp = 8;
+    public static int intakeDown = 7;
+    public static int ballUp = 9;
+    public static int ballDown = 10;
+    public static int frontIRChannel = 0;
+    public static int backIRChannel = 1;
     public static double spinSpeed;
+
+    //Endgame
+    public static int barTwoWinchChannel = 12;
+    public static int barThreeWinchChannel = 13;
+    public static int barFourWinchChannel = 14;
+    public static int barTwoArmUp = 4;
+    public static int barTwoArmDown = 5;
+    public static int barTwoClamp= 6;
+    //public static int barTwoNoClamp = 7;
+    //public static int barThreeArmUp = 8;
+    //public static int barThreeArmDown = 9;
+    //public static int barThreeClamp = 10;
+    public static int barThreeNoClamp = 11;
+    public static int barFourArmUp = 12;
+    public static int barFourArmDown = 13;
+    public static double winchSpeed;
+    public static double barTwoWinchEncoderTicks;
+    public static double barThreeWinchEncoderTicks;
+    public static double barFourWinchEncoderTicks;
+    
+
 }

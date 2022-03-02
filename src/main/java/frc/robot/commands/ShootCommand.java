@@ -8,6 +8,7 @@ public class ShootCommand extends CommandBase {
   Shooter m_shooter;
   double topRPM;
   double botRPM;
+
   public ShootCommand(double _topRPM, double _botRPM, Shooter _shooter) {
     topRPM = _topRPM;
     botRPM = _botRPM;
@@ -23,6 +24,15 @@ public class ShootCommand extends CommandBase {
   @Override
   public void execute() {
     m_shooter.shoot(topRPM, botRPM);
+    if (m_shooter.shooterReady(topRPM, botRPM)) {
+      m_shooter.ballUp();
+    }
+    try {
+      wait(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    m_shooter.retract();
   }
 
   @Override
