@@ -51,9 +51,11 @@ public final class Constants {
     public static int ballDown = 10;
     public static int frontIRChannel = 0;
     public static int backIRChannel = 1;
-    public static double spinSpeed;
+    public static double spinSpeed = 1;
 
     //Endgame
+    public static double minPSI = 0;
+    public static double maxPSI = 120;
     public static int barTwoWinchChannel = 12;
     public static int barThreeWinchChannel = 13;
     public static int barFourWinchChannel = 14;
@@ -62,7 +64,7 @@ public final class Constants {
     public static int barTwoClamp= 6;
     //public static int barTwoNoClamp = 7;
     //public static int barThreeArmUp = 8;
-    //public static int barThreeArmDown = 9;
+    //public static int barThreeArmDown = 9
     //public static int barThreeClamp = 10;
     public static int barThreeNoClamp = 11;
     public static int barFourArmUp = 12;

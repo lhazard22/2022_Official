@@ -78,10 +78,10 @@ public class SwerveDriveCommand extends CommandBase {
     double D = vy + omega * Constants.length / 2;
 
     // Finds Speeds for Each of the Wheels
-    double w1s = Math.sqrt(Math.pow(B, 2) + Math.pow(C, 2)) * .5;
-    double w2s = Math.sqrt(Math.pow(B, 2) + Math.pow(D, 2)) * .5;
-    double w3s = Math.sqrt(Math.pow(A, 2) + Math.pow(D, 2)) * .5;
-    double w4s = Math.sqrt(Math.pow(A, 2) + Math.pow(C, 2)) * .5;
+    double w1s = Math.sqrt(Math.pow(B, 2) + Math.pow(C, 2)) / 2;
+    double w2s = Math.sqrt(Math.pow(B, 2) + Math.pow(D, 2)) / 2;
+    double w3s = Math.sqrt(Math.pow(A, 2) + Math.pow(D, 2)) / 2;
+    double w4s = Math.sqrt(Math.pow(A, 2) + Math.pow(C, 2)) / 2;
 
     // Finds the Desired Angle
     double w1a = (Math.atan2(B, C) * (180 / Math.PI)) + 180;

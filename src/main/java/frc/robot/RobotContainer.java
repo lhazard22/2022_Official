@@ -27,12 +27,14 @@ public class RobotContainer {
   JoystickButton manipButtonRight = new JoystickButton(manipController, Constants.buttonRight);
   JoystickButton manipButtonLeft = new JoystickButton(manipController, Constants.buttonLeft);
   public RobotContainer() {
+    System.out.println("A");
     configureButtonBindings();
     m_DriveTrain.setDefaultCommand(new SwerveDriveCommand (() -> driverController.getLeftY(),
      () -> driverController.getLeftX(), () -> driverController.getRightX(), m_DriveTrain));
   }
 
   private void configureButtonBindings() {
+    System.out.println("A");
     manipButtonA.whileHeld(new ShootCommand(Constants.topRPM, Constants.botRPM, m_Shooter));
     manipButtonB.whileHeld(new RelayCommand(m_IntakeRelay));
     manipButtonY.whileHeld(new IntakeCommand(m_IntakeRelay));

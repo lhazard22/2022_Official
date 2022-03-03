@@ -139,7 +139,7 @@ public class Endgame extends SubsystemBase {
   }
 
   public void startCompressor() {
-    compressor.enableDigital();
+    compressor.enableDigital();;
   }
 
   public void compressorOff() {

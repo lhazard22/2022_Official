@@ -15,7 +15,7 @@ import frc.robot.Constants;
 public class Shooter extends SubsystemBase {
   WPI_TalonFX topShooter = new WPI_TalonFX(Constants.topShooterMotorChannel);
   WPI_TalonFX botShooter = new WPI_TalonFX(Constants.botShooterMotorChannel);
-  public DoubleSolenoid shooterSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, Constants.ballUp, Constants.ballDown);
+  //public DoubleSolenoid shooterSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, Constants.ballUp, Constants.ballDown);
   
   public Shooter() {
     topShooter.configFactoryDefault();
@@ -96,11 +96,11 @@ public class Shooter extends SubsystemBase {
   }
   
   public void ballUp() {
-    shooterSolenoid.set(Value.kForward);
+    //shooterSolenoid.set(Value.kForward);
   }
 
   public void retract() {
-    shooterSolenoid.set(Value.kReverse);
+    //shooterSolenoid.set(Value.kReverse);
   }
 
   @Override

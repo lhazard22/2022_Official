@@ -20,6 +20,7 @@ public class IntakeCommand extends CommandBase {
 
   @Override
   public void execute() {
+    System.out.println("A");
     m_Intake.intake(Constants.spinSpeed);
   }
 
