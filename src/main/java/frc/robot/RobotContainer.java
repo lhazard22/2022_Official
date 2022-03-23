@@ -53,7 +53,7 @@ public class RobotContainer {
     manipButtonStart.whenPressed(new UnclampCommand(m_Endgame));
   }
 
-  public Command getAutonomousCommand() {
-    return new AutoCommand(m_DriveTrain);
-  }
-}
+  // public Command getAutonomousCommand() {
+    // return new AutoCommand(m_DriveTrain);
+  // }    
+ }

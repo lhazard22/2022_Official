@@ -19,6 +19,7 @@ import frc.robot.Other.SampleSmoother;
 public class Shooter extends SubsystemBase {
   WPI_TalonFX topShooter = new WPI_TalonFX(Constants.topShooterMotorChannel);
   WPI_TalonFX botShooter = new WPI_TalonFX(Constants.botShooterMotorChannel);
+  WPI_TalonFX upperIntakeMotor = new WPI_TalonFX(Constants.upperIntakeMotorChannel);
   DoubleSolenoid shooterSolenoid = new DoubleSolenoid(20, PneumaticsModuleType.REVPH, Constants.ballUp, Constants.ballDown);
   static NetworkTable table = NetworkTableInstance.getDefault().getTable("Limelight");
   static SampleSmoother distanceSmoother = new SampleSmoother(10);
@@ -107,11 +108,11 @@ public class Shooter extends SubsystemBase {
   }
   
   public void ballUp() {
-    shooterSolenoid.set(Value.kReverse);
+  upperIntakeMotor.set(0.1);  ;
   }
 
   public void retract() {
-    shooterSolenoid.set(Value.kForward);
+  upperIntakeMotor.set(0.0);
   }
 
   public static double getDistance() {

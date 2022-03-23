@@ -45,6 +45,7 @@ public final class Constants {
 
     //Intake
     public static int intakeMotorChannel = 11;
+    public static int upperIntakeMotorChannel = 59; // Fake value
     public static int intakeDown = 7;
     public static int intakeUp = 8;
     public static int ballUp = 9;
