@@ -24,6 +24,7 @@ public class ShootCommand extends CommandBase {
   @Override
   public void execute() {
     distance = Shooter.getDistance();
+    double topRPM = Constants.topRPM; // erase to add number Constants.rpm to --- number 
     botRPM = m_shooter.getEquationRPM(distance);
 
     m_shooter.shoot(Constants.topRPM, botRPM);

@@ -7,11 +7,13 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Endgame;
 
-public class UnclampCommand extends CommandBase {
-  Endgame m_endgame;
-  public UnclampCommand(Endgame _endgame) {
-    m_endgame = _endgame;
-    addRequirements(m_endgame);
+public class WinchCommand extends CommandBase {
+  Endgame m_Endgame;
+
+  public WinchCommand(Endgame _Endgame) {
+    m_Endgame = _Endgame;
+
+    addRequirements(m_Endgame);
   }
 
   // Called when the command is initially scheduled.
@@ -21,10 +23,13 @@ public class UnclampCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_endgame.barTwoUnClamp();
-  }
+    if (m_Endgame.winchMotor.getSelectedSensorPosition() < 4096) {
+      m_Endgame.winch();
+    }
 
-  // Called once the command ends or is interrupted.
+  }
+  
+  
   @Override
   public void end(boolean interrupted) {}
 

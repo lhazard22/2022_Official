@@ -6,17 +6,14 @@ import java.util.function.DoubleSupplier;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.RelativeEncoder;
 
-import org.ejml.dense.block.MatrixOps_DDRB;
-
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Shooter;
 
 public class AutoCommand extends CommandBase {
   DriveTrain m_DriveTrain;
   Shooter m_Shooter;
-  CANEncoder encoder;
   DoubleSupplier leftY;
   DoubleSupplier leftX;
   DoubleSupplier rightX;
@@ -28,7 +25,7 @@ public class AutoCommand extends CommandBase {
 
   @Override
   public void initialize() {
-    encoder = m_DriveTrain.brDrive.getEncoder();
+    
   }
 
   @Override
@@ -38,11 +35,15 @@ public class AutoCommand extends CommandBase {
     rightX = () -> 0;
 
     double distance = Shooter.getDistance();
+    double botRPM = m_Shooter.getEquationRPM(distance);
 
     if(Math.abs(m_DriveTrain.brDrive.getEncoder().getPosition()) < 25) {
       m_DriveTrain.drive(leftY, leftX, rightX);
     } else {
-      
+      m_Shooter.shoot(Constants.topRPM, botRPM);
+    if (m_Shooter.shooterReady(Constants.topRPM, botRPM)) {
+      m_Shooter.ballUp();
+    }
     }
 
 

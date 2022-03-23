@@ -5,14 +5,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.Endgame;
 
-public class BarTwoWinchCommand extends CommandBase {
-  Endgame m_endgame;
-  public BarTwoWinchCommand(Endgame _endgame) {
-    m_endgame = _endgame;
-    addRequirements(m_endgame);
+public class WinchReverseCommand extends CommandBase {
+  Endgame m_Endgame; 
+
+  public WinchReverseCommand(Endgame _Endgame) {
+    m_Endgame = _Endgame; 
+    addRequirements(m_Endgame);
   }
 
   // Called when the command is initially scheduled.
@@ -22,14 +22,14 @@ public class BarTwoWinchCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_endgame.winchBarTwo(Constants.winchSpeed);
+    if (m_Endgame.winchMotor.getSelectedSensorPosition() > 0) {
+      m_Endgame.winchReverse();
+    }
   }
 
-  // Called once the command ends or is interrupted.
+ 
   @Override
-  public void end(boolean interrupted) {
-    m_endgame.winchBarTwoOff();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
