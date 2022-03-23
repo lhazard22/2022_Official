@@ -6,7 +6,7 @@ import frc.robot.Constants;
 import frc.robot.subsystems.IntakeRelay;
 
 public class IntakeCommand extends CommandBase {
-  IntakeRelay m_Intake = new IntakeRelay();
+  IntakeRelay m_Intake;
 
   public IntakeCommand(IntakeRelay _Intake) {
     m_Intake = _Intake;
@@ -20,13 +20,13 @@ public class IntakeCommand extends CommandBase {
 
   @Override
   public void execute() {
-    System.out.println("A");
+    
     m_Intake.intake(Constants.spinSpeed);
   }
 
   @Override
   public void end(boolean interrupted) {
-
+    m_Intake.stopIntake();
   }
 
   @Override

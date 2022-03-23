@@ -2,46 +2,44 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
 
 public class ShootCommand extends CommandBase {
   Shooter m_shooter;
-  double topRPM;
   double botRPM;
+  double distance;
+  boolean bool = false;
 
-  public ShootCommand(double _topRPM, double _botRPM, Shooter _shooter) {
-    topRPM = _topRPM;
-    botRPM = _botRPM;
+  public ShootCommand(Shooter _shooter) {
     m_shooter = _shooter;
     addRequirements(m_shooter);
   }
 
   @Override
   public void initialize() {
-
-  }
-
-  @Override
-  public void execute() {
-    m_shooter.shoot(topRPM, botRPM);
-    if (m_shooter.shooterReady(topRPM, botRPM)) {
-      m_shooter.ballUp();
-    }
-    try {
-      wait(1000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
     m_shooter.retract();
   }
 
   @Override
+  public void execute() {
+    distance = Shooter.getDistance();
+    botRPM = m_shooter.getEquationRPM(distance);
+
+    m_shooter.shoot(Constants.topRPM, botRPM);
+    if (m_shooter.shooterReady(Constants.topRPM, botRPM)) {
+      m_shooter.ballUp();
+    }
+    
+  }
+
+  @Override 
   public void end(boolean interrupted) {
-    m_shooter.shooterOff();
+    bool = false;
   }
 
   @Override
   public boolean isFinished() {
-    return false;
+    return bool;
   }
 }

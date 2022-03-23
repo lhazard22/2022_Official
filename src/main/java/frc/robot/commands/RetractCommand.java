@@ -5,33 +5,33 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.subsystems.IntakeRelay;
+import frc.robot.subsystems.Shooter;
 
-public class RelayCommand extends CommandBase {
-  IntakeRelay m_Relay;
-
-  public RelayCommand(IntakeRelay _Relay) {
-    m_Relay = _Relay;
-    addRequirements(m_Relay);
+public class RetractCommand extends CommandBase {
+  Shooter m_Shooter;
+  Boolean bool = false;
+  public RetractCommand(Shooter _Shooter) {
+    m_Shooter = _Shooter;
   }
 
   @Override
   public void initialize() {
+    m_Shooter.retract();
+    bool = true;
   }
 
   @Override
   public void execute() {
-    m_Relay.runRelay(Constants.spinSpeed);
+
   }
 
   @Override
   public void end(boolean interrupted) {
-    m_Relay.stopRelay();
+    bool = false;
   }
 
   @Override
   public boolean isFinished() {
-    return false;
+    return bool;
   }
 }

@@ -36,8 +36,8 @@ public final class Constants {
     //Shooter
     public static int topShooterMotorChannel = 9;
     public static int botShooterMotorChannel = 10;
-    public static double topRPM;
-    public static double botRPM;
+    public static double topRPM= 1000;
+    public static double botRPM= 6250;
     public static int kPIDLoopIdx = 0;
     public static int kTimeoutMs = 30;
     public static Gains kGains_Velocity = new Gains( 0.05, 0, 0, 0, 0,  1.00);
@@ -45,31 +45,31 @@ public final class Constants {
 
     //Intake
     public static int intakeMotorChannel = 11;
-    public static int intakeUp = 8;
     public static int intakeDown = 7;
+    public static int intakeUp = 8;
     public static int ballUp = 9;
     public static int ballDown = 10;
     public static int frontIRChannel = 0;
     public static int backIRChannel = 1;
-    public static double spinSpeed = 1;
+    public static double spinSpeed = .75;
 
     //Endgame
-    public static double minPSI = 0;
+    public static double minPSI = 90;
     public static double maxPSI = 120;
     public static int barTwoWinchChannel = 12;
-    public static int barThreeWinchChannel = 13;
-    public static int barFourWinchChannel = 14;
-    public static int barTwoArmUp = 4;
-    public static int barTwoArmDown = 5;
-    public static int barTwoClamp= 6;
-    //public static int barTwoNoClamp = 7;
-    //public static int barThreeArmUp = 8;
-    //public static int barThreeArmDown = 9
-    //public static int barThreeClamp = 10;
-    public static int barThreeNoClamp = 11;
-    public static int barFourArmUp = 12;
-    public static int barFourArmDown = 13;
-    public static double winchSpeed;
+    public static int barThreeWinchChannel = 14;
+    public static int barFourWinchChannel = 13;
+    public static int barTwoArmUp = 6;
+    public static int barTwoArmDown = 11;
+    public static int barTwoClamp= 2;
+    public static int barTwoNoClamp = 3;
+    public static int barThreeArmUp = 12;
+    public static int barThreeArmDown = 13;
+    public static int barThreeClamp = 14;
+    public static int barThreeNoClamp = 15;
+    public static int barFourArmUp = 4;
+    public static int barFourArmDown = 5;
+    public static double winchSpeed = -.75;
     public static double barTwoWinchEncoderTicks;
     public static double barThreeWinchEncoderTicks;
     public static double barFourWinchEncoderTicks;

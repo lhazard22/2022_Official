@@ -6,21 +6,32 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Other.SampleSmoother;
 
 public class Shooter extends SubsystemBase {
   WPI_TalonFX topShooter = new WPI_TalonFX(Constants.topShooterMotorChannel);
   WPI_TalonFX botShooter = new WPI_TalonFX(Constants.botShooterMotorChannel);
-  //public DoubleSolenoid shooterSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, Constants.ballUp, Constants.ballDown);
-  
+  DoubleSolenoid shooterSolenoid = new DoubleSolenoid(20, PneumaticsModuleType.REVPH, Constants.ballUp, Constants.ballDown);
+  static NetworkTable table = NetworkTableInstance.getDefault().getTable("Limelight");
+  static SampleSmoother distanceSmoother = new SampleSmoother(10);
+  static NetworkTableEntry ty;
+  static NetworkTableEntry tx;
+  static double x;
+  static double y;
+  static double distance;
+
   public Shooter() {
     topShooter.configFactoryDefault();
     topShooter.setNeutralMode(NeutralMode.Coast);
-    topShooter.setInverted(false);
+    topShooter.setInverted(true);
     topShooter.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
     topShooter.configNominalOutputForward(0, Constants.kTimeoutMs);
 		topShooter.configNominalOutputReverse(0, Constants.kTimeoutMs);
@@ -45,8 +56,8 @@ public class Shooter extends SubsystemBase {
   }
 
   public void shoot(double topRPM, double botRPM) {
-    topShooter.set(ControlMode.Velocity, topRPM * 2048 / 600);
-    botShooter.set(ControlMode.Velocity, botRPM * 2048 / 600);
+    topShooter.set(ControlMode.Velocity, topRPM * 4096 / 600);
+    botShooter.set(ControlMode.Velocity, botRPM * 4096 / 600);
   }
 
   public void shooterOff() {
@@ -96,11 +107,32 @@ public class Shooter extends SubsystemBase {
   }
   
   public void ballUp() {
-    //shooterSolenoid.set(Value.kForward);
+    shooterSolenoid.set(Value.kReverse);
   }
 
   public void retract() {
-    //shooterSolenoid.set(Value.kReverse);
+    shooterSolenoid.set(Value.kForward);
+  }
+
+  public static double getDistance() {
+    ty = table.getEntry("ty");
+    y = ty.getDouble(0.0); 
+    distanceSmoother.addSample(67 / Math.tan(Math.toRadians(y + 33)));
+    distance = distanceSmoother.getAverage();
+    
+    return distance;
+  }
+
+  public double getX() {
+    return table.getEntry("tx").getDouble(0.0);
+  }
+
+  public void enableLights() {
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
+  }
+
+  public double getEquationRPM(double distance) {
+    return 1.333 * Math.pow(distance, 3) - 46.286 * Math.pow(distance, 2) + 719.095 * distance - 523.268; 
   }
 
   @Override

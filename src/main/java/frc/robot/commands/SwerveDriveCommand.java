@@ -43,7 +43,6 @@ public class SwerveDriveCommand extends CommandBase {
     leftY = m_leftY.getAsDouble();
     leftX = m_leftX.getAsDouble();
     rightX = m_rightX.getAsDouble();
-    System.out.println(leftX);
     // Finds the X Value of the Left Stick on the Controller and Takes Care of
     // Joystick Drift
     if (Math.abs(leftX) < Constants.deadzone) {
@@ -72,10 +71,10 @@ public class SwerveDriveCommand extends CommandBase {
     double vy = y;// desired y speed
     double omega = rot;// desired rotation, clockwise pos in deg Check?
 
-    double A = vx - omega * Constants.length / 2;
-    double B = vx + omega * Constants.length / 2;
-    double C = vy - omega * Constants.length / 2;
-    double D = vy + omega * Constants.length / 2;
+    double A = vx - omega * Constants.length * .6;
+    double B = vx + omega * Constants.length * .6;
+    double C = vy - omega * Constants.length * .6;
+    double D = vy + omega * Constants.length * .6;
 
     // Finds Speeds for Each of the Wheels
     double w1s = Math.sqrt(Math.pow(B, 2) + Math.pow(C, 2)) / 2;

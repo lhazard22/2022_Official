@@ -4,11 +4,16 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.EndgameCommand;
+import frc.robot.commands.AutoCommand;
+import frc.robot.commands.BarTwoExtendCommand;
+import frc.robot.commands.BarTwoWinchCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.RelayCommand;
-import frc.robot.commands.ShootCommand;
+import frc.robot.commands.RetractArmCommand;
+import frc.robot.commands.RetractCommand;
+import frc.robot.commands.ShootSequenceCommand;
 import frc.robot.commands.SwerveDriveCommand;
+import frc.robot.commands.UnclampCommand;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Endgame;
 import frc.robot.subsystems.IntakeRelay;
@@ -23,25 +28,32 @@ public class RobotContainer {
   XboxController manipController = new XboxController(Constants.ManipControllerChannel);
   JoystickButton manipButtonA = new JoystickButton(manipController, Constants.buttonA);
   JoystickButton manipButtonB = new JoystickButton(manipController, Constants.buttonB);
+  JoystickButton manipButtonX = new JoystickButton(manipController, Constants.buttonX);
   JoystickButton manipButtonY = new JoystickButton(manipController, Constants.buttonY);
   JoystickButton manipButtonRight = new JoystickButton(manipController, Constants.buttonRight);
   JoystickButton manipButtonLeft = new JoystickButton(manipController, Constants.buttonLeft);
-  public RobotContainer() {
-    System.out.println("A");
+  JoystickButton manipButtonOptions = new JoystickButton(manipController, 7);
+  JoystickButton manipButtonStart = new JoystickButton(manipController, 8);
+
+  public RobotContainer() {  
     configureButtonBindings();
     m_DriveTrain.setDefaultCommand(new SwerveDriveCommand (() -> driverController.getLeftY(),
      () -> driverController.getLeftX(), () -> driverController.getRightX(), m_DriveTrain));
   }
 
-  private void configureButtonBindings() {
-    System.out.println("A");
-    manipButtonA.whileHeld(new ShootCommand(Constants.topRPM, Constants.botRPM, m_Shooter));
+  private void configureButtonBindings() { 
+    //manipButtonA.whileHeld(new ShootCommand(Constants.topRPM, Constants.botRPM, m_Shooter));
+    manipButtonA.whileHeld(new ShootSequenceCommand(m_Shooter));
     manipButtonB.whileHeld(new RelayCommand(m_IntakeRelay));
+    manipButtonX.whenPressed(new RetractCommand(m_Shooter));
     manipButtonY.whileHeld(new IntakeCommand(m_IntakeRelay));
-    manipButtonRight.whenPressed(new EndgameCommand(m_Endgame, manipButtonLeft));
+    manipButtonRight.whenPressed(new BarTwoExtendCommand(m_Endgame));
+    manipButtonLeft.whenPressed(new RetractArmCommand(m_Endgame));
+    manipButtonOptions.whileHeld(new BarTwoWinchCommand(m_Endgame));
+    manipButtonStart.whenPressed(new UnclampCommand(m_Endgame));
   }
 
   public Command getAutonomousCommand() {
-    return null;
+    return new AutoCommand(m_DriveTrain);
   }
 }
