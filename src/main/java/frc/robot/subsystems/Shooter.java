@@ -5,7 +5,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -21,13 +20,12 @@ public class Shooter extends SubsystemBase {
   WPI_TalonFX botShooter = new WPI_TalonFX(Constants.botShooterMotorChannel);
   WPI_TalonFX upperIntakeMotor = new WPI_TalonFX(Constants.upperIntakeMotorChannel);
   DoubleSolenoid shooterSolenoid = new DoubleSolenoid(20, PneumaticsModuleType.REVPH, Constants.ballUp, Constants.ballDown);
-  static NetworkTable table = NetworkTableInstance.getDefault().getTable("Limelight");
-  static SampleSmoother distanceSmoother = new SampleSmoother(10);
-  static NetworkTableEntry ty;
-  static NetworkTableEntry tx;
-  static double x;
-  static double y;
-  static double distance;
+  NetworkTable table = NetworkTableInstance.getDefault().getTable("Limelight");
+  NetworkTableEntry ty;
+  NetworkTableEntry tx;
+  double x;
+  double y;
+  double distance;
 
   public Shooter() {
     topShooter.configFactoryDefault();
@@ -108,18 +106,17 @@ public class Shooter extends SubsystemBase {
   }
   
   public void ballUp() {
-  upperIntakeMotor.set(0.1);  ;
+  upperIntakeMotor.set(-0.5);  ;
   }
 
   public void retract() {
   upperIntakeMotor.set(0.0);
   }
 
-  public static double getDistance() {
+  public double getDistance() {
     ty = table.getEntry("ty");
     y = ty.getDouble(0.0); 
-    distanceSmoother.addSample(67 / Math.tan(Math.toRadians(y + 33)));
-    distance = distanceSmoother.getAverage();
+    distance = 67 / Math.tan(Math.toRadians(y + 37));
     
     return distance;
   }
@@ -138,6 +135,7 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    System.out.println("Distance: " + getDistance());
+    System.out.println("Y: " + ty.getDouble(0.0));
   }
 }
