@@ -22,6 +22,10 @@ public class RobotContainer {
   Endgame m_Endgame = new Endgame();
   XboxController driverController = new XboxController(Constants.DriverControllerChannel);
   XboxController manipController = new XboxController(Constants.ManipControllerChannel);
+  // XboxController ManipController = new XboxController(Constants.upperIntakeMotorChannel);
+  //did by rafa try chaning
+   // JoystickButton drivButtonA = new JoystickButton(driverController, Constants.buttonA);
+  //end of change
   JoystickButton manipButtonA = new JoystickButton(manipController, Constants.buttonA);
   JoystickButton manipButtonB = new JoystickButton(manipController, Constants.buttonB);
   JoystickButton manipButtonX = new JoystickButton(manipController, Constants.buttonX);
@@ -38,6 +42,8 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() { 
+    //rafercode
+    // drivButtonA.whileHeld(new Shooter(ballup)))
     manipButtonA.whileHeld(new ShootCommand(m_Shooter));
     manipButtonY.whileHeld(new IntakeCommand(m_IntakeRelay));
     manipButtonRight.whileHeld(new WinchCommand(m_Endgame));

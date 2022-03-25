@@ -23,12 +23,12 @@ public class ShootCommand extends CommandBase {
 
   @Override
   public void execute() {
-    distance = Shooter.getDistance();
-    double topRPM = Constants.topRPM; // erase to add number Constants.rpm to --- number 
-    botRPM = m_shooter.getEquationRPM(distance);
+    distance = m_shooter.getDistance();
+    double topRPM = Constants.topRPM;
+    botRPM = /*m_shooter.getEquationRPM(distance)*/ 5000;
 
-    m_shooter.shoot(Constants.topRPM, botRPM);
-    if (m_shooter.shooterReady(Constants.topRPM, botRPM)) {
+    m_shooter.shoot(topRPM, botRPM);
+    if (m_shooter.shooterReady(topRPM, botRPM)) {
       m_shooter.ballUp();
     }
     
@@ -36,7 +36,8 @@ public class ShootCommand extends CommandBase {
 
   @Override 
   public void end(boolean interrupted) {
-    bool = false;
+    m_shooter.shooterOff();
+    m_shooter.retract();
   }
 
   @Override

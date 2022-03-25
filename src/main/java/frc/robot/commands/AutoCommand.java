@@ -34,7 +34,7 @@ public class AutoCommand extends CommandBase {
     leftX = () -> 0;
     rightX = () -> 0;
 
-    double distance = Shooter.getDistance();
+    double distance = m_Shooter.getDistance();
     double botRPM = m_Shooter.getEquationRPM(distance);
 
     if(Math.abs(m_DriveTrain.brDrive.getEncoder().getPosition()) < 25) {

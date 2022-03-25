@@ -53,14 +53,14 @@ public class DriveTrain extends SubsystemBase {
     brDrive.getEncoder().setPosition(0);
   }
   
-  public double getPosition(double rawAngle, double offset) {
+    public double getPosition(double rawAngle, double offset) {
     double offsetRot = offset / 360;
     double angle = rawAngle - offsetRot;
     double angleDeg = (angle % 1) * 360;
     if (angleDeg < 0) {
       angleDeg = angleDeg + 360;
     }
-
+      
     return angleDeg;
   }
 
@@ -470,6 +470,6 @@ public class DriveTrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    System.out.println(brDrive.getEncoder().getPosition());
+    
   }
 }
