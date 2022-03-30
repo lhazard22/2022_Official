@@ -36,11 +36,11 @@ public final class Constants {
     //Shooter
     public static int topShooterMotorChannel = 9;
     public static int botShooterMotorChannel = 10;
-    public static double topRPM= 1000;
+    public static double topRPM= 1750;
     public static double botRPM= 6250;
     public static int kPIDLoopIdx = 0;
     public static int kTimeoutMs = 30;
-    public static Gains kGains_Velocity = new Gains( 0.05, 0, 0, 0, 0,  1.00);
+    public static Gains kGains_Velocity = new Gains( 0.045, 0, 0, 0, 0,  1.00);
     public static double acceptableRpmError = 0.05;
 
     //Intake
@@ -52,7 +52,7 @@ public final class Constants {
     public static int ballDown = 10;
     public static int frontIRChannel = 0;
     public static int backIRChannel = 1;
-    public static double spinSpeed = .75;
+    public static double spinSpeed = .85;
 
     //Endgame
     public static double minPSI = 90;

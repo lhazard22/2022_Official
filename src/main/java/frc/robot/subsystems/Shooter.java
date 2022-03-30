@@ -20,12 +20,12 @@ public class Shooter extends SubsystemBase {
   WPI_TalonFX botShooter = new WPI_TalonFX(Constants.botShooterMotorChannel);
   WPI_TalonFX upperIntakeMotor = new WPI_TalonFX(Constants.upperIntakeMotorChannel);
   DoubleSolenoid shooterSolenoid = new DoubleSolenoid(20, PneumaticsModuleType.REVPH, Constants.ballUp, Constants.ballDown);
-  NetworkTable table = NetworkTableInstance.getDefault().getTable("Limelight");
-  NetworkTableEntry ty;
-  NetworkTableEntry tx;
-  double x;
-  double y;
-  double distance;
+  //NetworkTable table = NetworkTableInstance.getDefault().getTable("Limelight");
+  //NetworkTableEntry ty;
+  //NetworkTableEntry tx;
+  //double x;
+  //double y;
+  //double distance;
 
   public Shooter() {
     topShooter.configFactoryDefault();
@@ -98,6 +98,9 @@ public class Shooter extends SubsystemBase {
     boolean topShooterReady = topShooterReady(topRPM);
     boolean botShooterReady = botShooterReady(botRPM);
 
+    System.out.println("Top " + topShooterReady);
+    System.out.println("Bot " + botShooterReady);
+
     if(topShooterReady && botShooterReady) {
       return true;
     } else {
@@ -114,15 +117,17 @@ public class Shooter extends SubsystemBase {
   }
 
   public double getDistance() {
-    ty = table.getEntry("ty");
-    y = ty.getDouble(0.0); 
-    distance = 67 / Math.tan(Math.toRadians(y + 37));
+    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+    NetworkTableEntry ty = table.getEntry("ty");
+    double y = ty.getDouble(0.0); 
+    double distance = 77 /(12 * Math.tan(Math.toRadians(y+ 37)));
     
     return distance;
   }
 
   public double getX() {
-    return table.getEntry("tx").getDouble(0.0);
+    //return table.getEntry("tx").getDouble(0.0);
+    return 0;
   }
 
   public void enableLights() {
@@ -135,7 +140,17 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void periodic() {
-    System.out.println("Distance: " + getDistance());
-    System.out.println("Y: " + ty.getDouble(0.0));
+    //System.out.println("Distance: " + getDistance());
+    //System.out.println("Y: " + y);
+    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+    NetworkTableEntry tx = table.getEntry("tx");
+    NetworkTableEntry ty = table.getEntry("ty");
+    NetworkTableEntry ta = table.getEntry("ta");
+//read values periodically
+    //double x = tx.getDouble(0.0);
+    double y = ty.getDouble(0.0);
+    //double area = ta.getDouble(0.0);
+    //System.out.println(y);
+    getDistance();
   }
 }

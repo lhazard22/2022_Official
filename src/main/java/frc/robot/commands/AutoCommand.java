@@ -3,8 +3,7 @@ package frc.robot.commands;
 
 import java.util.function.DoubleSupplier;
 
-import com.revrobotics.CANEncoder;
-import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -17,6 +16,8 @@ public class AutoCommand extends CommandBase {
   DoubleSupplier leftY;
   DoubleSupplier leftX;
   DoubleSupplier rightX;
+  double counter;
+
   public AutoCommand(DriveTrain _DriveTrain, Shooter _Shooter) {
     m_DriveTrain = _DriveTrain;
     m_Shooter = _Shooter;
@@ -25,7 +26,12 @@ public class AutoCommand extends CommandBase {
 
   @Override
   public void initialize() {
-    
+    m_DriveTrain.brDrive.getEncoder().setPosition(0);
+    m_DriveTrain.brDrive.setIdleMode(CANSparkMax.IdleMode.kBrake);
+    m_DriveTrain.frDrive.setIdleMode(CANSparkMax.IdleMode.kBrake);
+    m_DriveTrain.blDrive.setIdleMode(CANSparkMax.IdleMode.kBrake);
+    m_DriveTrain.flDrive.setIdleMode(CANSparkMax.IdleMode.kBrake);
+    counter = 0;
   }
 
   @Override
@@ -35,26 +41,33 @@ public class AutoCommand extends CommandBase {
     rightX = () -> 0;
 
     double distance = m_Shooter.getDistance();
-    double botRPM = m_Shooter.getEquationRPM(distance);
+    double botRPM = /* m_Shooter.getEquationRPM(distance) */3750;
 
-    if(Math.abs(m_DriveTrain.brDrive.getEncoder().getPosition()) < 25) {
+    if (Math.abs(m_DriveTrain.brDrive.getEncoder().getPosition()) < 52) {
       m_DriveTrain.drive(leftY, leftX, rightX);
     } else {
-      m_Shooter.shoot(Constants.topRPM, botRPM);
-    if (m_Shooter.shooterReady(Constants.topRPM, botRPM)) {
-      m_Shooter.ballUp();
+      m_DriveTrain.drive(() -> 0, () -> 0, () -> 0);
+      m_Shooter.shoot(1750, botRPM);
+      if (m_Shooter.shooterReady(1750, botRPM)) {
+        m_Shooter.ballUp();
+        counter = counter + 1;
+      }
     }
-    }
-
 
   }
+
   @Override
   public void end(boolean interrupted) {
-
+    m_Shooter.shooterOff();
+    m_Shooter.retract();
   }
 
   @Override
   public boolean isFinished() {
-    return false;
+    if(counter < 40) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }

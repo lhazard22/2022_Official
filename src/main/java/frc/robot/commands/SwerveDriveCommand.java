@@ -5,6 +5,7 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import com.revrobotics.CANSparkMax;
 import frc.robot.subsystems.DriveTrain;
 
 public class SwerveDriveCommand extends CommandBase {
@@ -34,7 +35,10 @@ public class SwerveDriveCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+    m_DriveTrain.brDrive.setIdleMode(CANSparkMax.IdleMode.kCoast);
+    m_DriveTrain.frDrive.setIdleMode(CANSparkMax.IdleMode.kCoast);
+    m_DriveTrain.blDrive.setIdleMode(CANSparkMax.IdleMode.kCoast);
+    m_DriveTrain.flDrive.setIdleMode(CANSparkMax.IdleMode.kCoast);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

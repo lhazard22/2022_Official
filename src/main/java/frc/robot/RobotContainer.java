@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AutoCommand;
 import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.RelayCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.SwerveDriveCommand;
 import frc.robot.commands.WinchCommand;
@@ -45,6 +46,7 @@ public class RobotContainer {
     //rafercode
     // drivButtonA.whileHeld(new Shooter(ballup)))
     manipButtonA.whileHeld(new ShootCommand(m_Shooter));
+    manipButtonB.whileHeld(new RelayCommand(m_IntakeRelay));
     manipButtonY.whileHeld(new IntakeCommand(m_IntakeRelay));
     manipButtonRight.whileHeld(new WinchCommand(m_Endgame));
     manipButtonLeft.whileHeld(new WinchReverseCommand(m_Endgame));
