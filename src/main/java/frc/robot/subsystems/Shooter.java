@@ -55,8 +55,8 @@ public class Shooter extends SubsystemBase {
   }
 
   public void shoot(double topRPM, double botRPM) {
-    topShooter.set(ControlMode.Velocity, topRPM * 4096 / 600);
-    botShooter.set(ControlMode.Velocity, botRPM * 4096 / 600);
+    topShooter.set(ControlMode.Velocity, topRPM * 1000 / 600);
+    botShooter.set(ControlMode.Velocity, botRPM * 4000 / 600);
   }
 
   public void shooterOff() {

@@ -23,10 +23,10 @@ public class ShootCommand extends CommandBase {
 
   @Override
   public void execute() {
-    double topRPM = 1750;
+    double topRPM = 1000;
     distance = m_shooter.getDistance();
     System.out.println(distance);
-    botRPM = /*m_shooter.getEquationRPM(distance)*/ 3750;
+    botRPM = /*m_shooter.getEquationRPM(distance)*/ 6500;
 
     System.out.println("Top RPM: " + m_shooter.getTopAngularVelocity());
     System.out.println("Bot RPM: " + m_shooter.getBotAngularVelocity());
