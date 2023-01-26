@@ -12,19 +12,19 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
   Shooter m_shooter;
-  PneumaticHub pneumaticHub = new PneumaticHub(20);
+  //PneumaticHub pneumaticHub = new PneumaticHub(20);
   
   
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
-    pneumaticHub.enableCompressorAnalog(Constants.minPSI, Constants.maxPSI);
+    //pneumaticHub.enableCompressorAnalog(Constants.minPSI, Constants.maxPSI);
   }
 
 
   @Override
   public void robotPeriodic() {
-    SmartDashboard.putNumber("Pressure", pneumaticHub.getPressure(0));
+    //SmartDashboard.putNumber("Pressure", pneumaticHub.getPressure(0));
     CommandScheduler.getInstance().run();
   }
 

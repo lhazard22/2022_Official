@@ -40,27 +40,27 @@ public class AutoCommand extends CommandBase {
     leftX = () -> 0;
     rightX = () -> 0;
 
-    double distance = m_Shooter.getDistance();
+    //double distance = m_Shooter.getDistance();
     double botRPM = /* m_Shooter.getEquationRPM(distance) */3750;
 
     if (Math.abs(m_DriveTrain.brDrive.getEncoder().getPosition()) < 52) {
       m_DriveTrain.drive(leftY, leftX, rightX);
     } else {
       m_DriveTrain.drive(() -> 0, () -> 0, () -> 0);
-      m_Shooter.shoot(1750, botRPM);
-      if (m_Shooter.shooterReady(1750, botRPM)) {
-        m_Shooter.ballUp();
-        counter = counter + 1;
+    //  m_Shooter.shoot(1750, botRPM);
+    //  if (m_Shooter.shooterReady(1750, botRPM)) {
+    //    m_Shooter.ballUp();
+    //    counter = counter + 1;
       }
     }
 
   }
 
-  @Override
-  public void end(boolean interrupted) {
-    m_Shooter.shooterOff();
-    m_Shooter.retract();
-  }
+//  @Override
+//  public void end(boolean interrupted) {
+//    m_Shooter.shooterOff();
+//    m_Shooter.retract();
+//  }
 
   @Override
   public boolean isFinished() {
